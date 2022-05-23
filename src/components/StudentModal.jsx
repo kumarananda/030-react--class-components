@@ -4,6 +4,7 @@ import { Modal } from "react-bootstrap";
 export class StudentModal extends Component {
   constructor(props) {
     super(props);
+    
   }
   render() {
     // console.log(this.props);

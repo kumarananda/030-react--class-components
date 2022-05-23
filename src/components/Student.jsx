@@ -1,7 +1,15 @@
 import React, { Component } from "react";
-import { Card, Col, Container, Row, Table, Button } from "react-bootstrap";
+import {
+  Card,
+  Col,
+  Container,
+  Row,
+  Table,
+  Button,
+  Alert,
+  CloseButton,
+} from "react-bootstrap";
 import StudentModal from "./StudentModal";
-import { Modal } from "bootstrap";
 
 export class Student extends Component {
   constructor(props) {
@@ -18,7 +26,10 @@ export class Student extends Component {
   }
 
   render() {
+    // desteskchring
     const { modal } = this.state;
+    const { msg, type, status } = this.state.alert;
+
     const handleModalShow = () => {
       this.setState({
         ...this.state,
@@ -31,6 +42,27 @@ export class Student extends Component {
         modal: false,
       });
     };
+    // handle alert
+    const handleAlertShow = () => {
+      this.setState({
+        ...this.state,
+        alert: {
+          msg: "This is a Alert",
+          status: true,
+          type: "danger",
+        },
+      });
+    };
+    const handleAlertHide = () => {
+      this.setState({
+        ...this.state,
+        alert: {
+          msg: "",
+          status: false,
+          type: "",
+        },
+      });
+    };
     return (
       <>
         <Container>
@@ -40,6 +72,17 @@ export class Student extends Component {
                 Add new Student
               </Button>
               <StudentModal show={modal} handleModalHide={handleModalHide} />
+              <br />
+              <br />
+              {status && (
+                <Alert
+                  className="d-flex justify-content-between"
+                  variant={type}
+                >
+                  {msg} <CloseButton onClick={handleAlertHide}></CloseButton>
+                </Alert>
+              )}
+
               <Card>
                 <Card.Body>
                   <Table>
@@ -57,7 +100,11 @@ export class Student extends Component {
                         <td>Ananda Saha</td>
                         <td>01913918163</td>
                         <td>
-                          <a className="btn btn-info btn-sm" href="#">
+                          <a
+                            onClick={handleAlertShow}
+                            className="btn btn-info btn-sm"
+                            href="#"
+                          >
                             View
                           </a>
                           &nbsp;
