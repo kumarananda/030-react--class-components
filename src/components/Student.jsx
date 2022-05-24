@@ -16,7 +16,10 @@ export class Student extends Component {
     super(props);
 
     this.state = {
-      modal: false,
+      modal: {
+        status: false,
+        type: "",
+      },
       alert: {
         status: false,
         msg: "",
@@ -30,16 +33,47 @@ export class Student extends Component {
     const { modal } = this.state;
     const { msg, type, status } = this.state.alert;
 
-    const handleModalShow = () => {
+    // onClick handle modal
+    const handleAddModal = () => {
       this.setState({
         ...this.state,
-        modal: true,
+        modal: {
+          status: true,
+          type: "create",
+        },
       });
     };
+    // handle Single Student view Modal
+    const handleSingleStudentShow = () => {
+      this.setState({
+        ...this.state,
+        modal: {
+          status: true,
+          type: "show",
+        },
+      });
+    };
+    // handle Single Student Edit Modla
+    const handleSingleStudentEdit = (e) => {
+      e.preventDefault();
+
+      this.setState({
+        ...this.state,
+        modal: {
+          status: true,
+          type: "edit",
+        },
+      });
+    }; //problem
+
+    // onClick handle modal hide
     const handleModalHide = () => {
       this.setState({
         ...this.state,
-        modal: false,
+        modal: {
+          status: false,
+          type: "",
+        },
       });
     };
     // handle alert
@@ -53,6 +87,7 @@ export class Student extends Component {
         },
       });
     };
+    // handle alert hide
     const handleAlertHide = () => {
       this.setState({
         ...this.state,
@@ -68,10 +103,14 @@ export class Student extends Component {
         <Container>
           <Row className="justfiy-content-center my-5">
             <Col md={6}>
-              <Button onClick={handleModalShow} variant="primary">
+              <Button onClick={handleAddModal} variant="primary">
                 Add new Student
               </Button>
-              <StudentModal show={modal} handleModalHide={handleModalHide} />
+              <StudentModal
+                show={modal.status}
+                type={modal.type}
+                handleModalHide={handleModalHide}
+              />
               <br />
               <br />
               {status && (
@@ -101,14 +140,19 @@ export class Student extends Component {
                         <td>01913918163</td>
                         <td>
                           <a
-                            onClick={handleAlertShow}
+                            // onClick={handleAlertShow}
+                            onClick={(e) => handleSingleStudentShow(e)}
                             className="btn btn-info btn-sm"
                             href="#"
                           >
                             View
                           </a>
                           &nbsp;
-                          <a className="btn btn-warning btn-sm" href="#">
+                          <a
+                            onClick={(e) => handleSingleStudentEdit(e)}
+                            className="btn btn-warning btn-sm"
+                            href="#"
+                          >
                             Edit
                           </a>{" "}
                           &nbsp;
