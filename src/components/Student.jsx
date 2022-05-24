@@ -147,6 +147,14 @@ export class Student extends Component {
                           >
                             View
                           </a>
+                          <a
+                            // onClick={handleAlertShow}
+                            onClick={(e) => handleSingleStudentShow(e)}
+                            className="btn btn-info btn-sm"
+                            href="#"
+                          >
+                            View
+                          </a>
                           &nbsp;
                           <a
                             onClick={(e) => handleSingleStudentEdit(e)}
