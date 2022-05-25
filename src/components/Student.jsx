@@ -44,7 +44,8 @@ export class Student extends Component {
       });
     };
     // handle Single Student view Modal
-    const handleSingleStudentShow = () => {
+    const handleSingleStudentShow = (e) => {
+      e.preventDefault();
       this.setState({
         ...this.state,
         modal: {
@@ -64,7 +65,19 @@ export class Student extends Component {
           type: "edit",
         },
       });
-    }; //problem
+    };
+    // handle Single Student Delete Modla
+    const handleSingleStudentDelete = (e) => {
+      e.preventDefault();
+
+      this.setState({
+        ...this.state,
+        modal: {
+          status: true,
+          type: "delete",
+        },
+      });
+    };
 
     // onClick handle modal hide
     const handleModalHide = () => {
@@ -147,14 +160,6 @@ export class Student extends Component {
                           >
                             View
                           </a>
-                          <a
-                            // onClick={handleAlertShow}
-                            onClick={(e) => handleSingleStudentShow(e)}
-                            className="btn btn-info btn-sm"
-                            href="#"
-                          >
-                            View
-                          </a>
                           &nbsp;
                           <a
                             onClick={(e) => handleSingleStudentEdit(e)}
@@ -164,7 +169,11 @@ export class Student extends Component {
                             Edit
                           </a>{" "}
                           &nbsp;
-                          <a className="btn btn-danger btn-sm" href="#">
+                          <a
+                            onClick={(e) => handleSingleStudentDelete(e)}
+                            className="btn btn-danger btn-sm"
+                            href="#"
+                          >
                             Delete
                           </a>{" "}
                         </td>
